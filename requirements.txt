@@ -14,5 +14,5 @@ Instalación
     pip install -r requirements.txt
 
 Archivo requirements.txt:
-    ```bash
+    ```text
     requests

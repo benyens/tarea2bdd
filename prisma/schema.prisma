@@ -14,8 +14,7 @@ datasource db {
 }
  
 model usuarios {
-  id Int @id @default(autoincrement())
-  direccion_correo String @unique
+  direccion_correo String @id 
   nombre_usuario String
   contrasena String
   descripcion String
@@ -29,27 +28,27 @@ model usuarios {
 
 model correos {
   id Int @id @default(autoincrement())
-  remitenteId Int // clave foránea
-  destinatarioId Int // clave foránea
+  remitenteId String // clave foránea
+  destinatarioId String // clave foránea
   fecha_envio DateTime @default(now())
 
-  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [id])
-  destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [id])
+  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [direccion_correo])
+  destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [direccion_correo])
 }
 
 model direcciones_favoritas {
   id Int @id @default(autoincrement())
-  usuarioId Int // clave foránea
+  usuarioId String// clave foránea
   direccion_favorita String
 
-  usuario usuarios @relation(fields: [usuarioId], references: [id])
+  usuario usuarios @relation(fields: [usuarioId], references: [direccion_correo])
 }
 
 model direcciones_bloqueadas {
   id Int @id @default(autoincrement())
-  usuarioId Int // clave foránea
+  usuarioId String // clave foránea
   direccion_bloqueada String
 
-  usuario usuarios @relation(fields: [usuarioId], references: [id])
+  usuario usuarios @relation(fields: [usuarioId], references: [direccion_correo])
 }
  

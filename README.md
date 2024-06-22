@@ -31,7 +31,7 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
    Asegúrate de tener una base de datos PostgreSQL en funcionamiento.
 
    Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
-   ```env
+   ```bash
    DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/nombre_de_tu_base_de_datos"
 
 4.Ejecutar las migraciones de Prisma:

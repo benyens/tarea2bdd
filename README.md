@@ -27,7 +27,7 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
    ```bash
    npm install
 
-3.Configurar la base de datos:
+3. Configurar la base de datos:
    Asegúrate de tener una base de datos PostgreSQL en funcionamiento.
 
    Crea un archivo .env en la raíz del proyecto con el siguiente contenido:

@@ -44,3 +44,8 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
    npm run start
 
 El servidor estará disponible en http://localhost:3000.
+
+
+### Post-Data
+
+-En este caso le agregamos la opción de bloquear/desbloquear usuario en el menú.

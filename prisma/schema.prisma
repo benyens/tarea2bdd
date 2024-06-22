@@ -16,45 +16,40 @@ datasource db {
 model usuarios {
   id Int @id @default(autoincrement())
   direccion_correo String @unique
-  nombre_usuario String   
+  nombre_usuario String
   contrasena String
   descripcion String
   bloqueado Boolean @default(false)
   fecha_creacion DateTime @default(now())
+  correosEnviados correos[] @relation(name: "CorreoRemitente")
+  correosRecibidos correos[] @relation(name: "CorreoDestinatario")
   direcciones_favoritas direcciones_favoritas[]
   direcciones_bloqueadas direcciones_bloqueadas[]
 }
 
 model correos {
   id Int @id @default(autoincrement())
-  direccion_correo String @unique
+  remitenteId Int // clave foránea
+  destinatarioId Int // clave foránea
   fecha_envio DateTime @default(now())
-  direcciones_favoritas direcciones_favoritas[]
-  direcciones_bloqueadas direcciones_bloqueadas[]
-}
 
-model temas_correo {
-  id Int @id @default(autoincrement())
-  nombre_tema String @unique
-}
-
-model plugins_correo {
-  id Int @id @default(autoincrement())
-  nombre_plugin String @unique
+  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [id])
+  destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [id])
 }
 
 model direcciones_favoritas {
-  id_usuario Int
-  id_correo Int 
-  @@id([id_usuario, id_correo])
-  user usuarios @relation(fields: [id_usuario], references: [id])
-  correo correos @relation(fields: [id_correo], references: [id])
+  id Int @id @default(autoincrement())
+  usuarioId Int // clave foránea
+  direccion_favorita String
+
+  usuario usuarios @relation(fields: [usuarioId], references: [id])
 }
 
 model direcciones_bloqueadas {
-  id_usuario Int
-  id_correo Int 
-  @@id([id_usuario, id_correo])
-  user usuarios @relation(fields: [id_usuario], references: [id])
-  correo correos @relation(fields: [id_correo], references: [id])
+  id Int @id @default(autoincrement())
+  usuarioId Int // clave foránea
+  direccion_bloqueada String
+
+  usuario usuarios @relation(fields: [usuarioId], references: [id])
 }
+ 

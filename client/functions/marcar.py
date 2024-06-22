@@ -22,7 +22,7 @@ def marcar_favorito(correo, clave, id_correo_favorito):
     data = {
         "correo": correo,
         "clave": clave,
-        "id_correo_favorito": id_correo_favorito
+        "direccion_favorita": id_correo_favorito
     }
     response = requests.post(f"{BASE_URL}/marcarcorreo", json=data)
     print(response.json())
@@ -30,9 +30,9 @@ def marcar_favorito(correo, clave, id_correo_favorito):
 
 def desmarcar_favorito(correo, clave, id_correo_favorito):
     data = {
-        "correo": correo,
+        "UsuarioId": correo,
         "clave": clave,
-        "id_correo_favorito": id_correo_favorito
+        "direccion_favorita": id_correo_favorito
     }
     response = requests.delete(f"{BASE_URL}/desmarcarcorreo", json=data)
     print(response.json())

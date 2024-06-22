@@ -18,18 +18,21 @@ def opcion_bloquear(correo, clave):
             print("Opcion invalida")
 
 def bloquear_usuario(correo, clave, correo_bloquear):
-    response = requests.post(f"{BASE_URL}/bloquear", json={
+    data = {
         "correo": correo,
         "clave": clave,
-        "correo_bloquear": correo_bloquear
-    })
+        "direccion_bloqueada": correo_bloquear
+    }
+    response = requests.post(f"{BASE_URL}/bloquear", json=data)
     print(response.json())
 
 
 def desbloquear_usuario(correo, clave, correo_desbloquear):
-    response = requests.delete(f"{BASE_URL}/desbloquear", json={
+    data = {
         "correo": correo,
         "clave": clave,
-        "correo_desbloquear": correo_desbloquear
-    })
+        "direccion_bloqueada": correo_desbloquear
+    }
+    response = requests.delete(f"{BASE_URL}/desbloquear", json=data)
+
     print(response.json())

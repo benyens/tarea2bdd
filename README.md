@@ -34,13 +34,12 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
    ```bash
    DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/nombre_de_tu_base_de_datos"
 
-4.Ejecutar las migraciones de Prisma:
-
+4. Ejecutar las migraciones de Prisma:
    ```bash
    npx prisma migrate dev --name init
    npx prisma generate
 
-5.Iniciar el servidor:
+5. Iniciar el servidor:
    ```bash
    npm run start
 

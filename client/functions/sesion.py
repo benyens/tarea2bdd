@@ -1,5 +1,6 @@
 import requests	
-from baseurl import BASE_URL
+
+BASE_URL = "http://localhost:3000/" #URL de la API
 
 def iniciar_sesion(correo, clave):
     cont = 0
@@ -22,3 +23,4 @@ def iniciar_sesion(correo, clave):
             cont += 1
 
     print(response.json())
+

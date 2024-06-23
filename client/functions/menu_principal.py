@@ -1,8 +1,9 @@
-from bloquear import opcion_bloquear
-from marcar import opcion_marcar
+from bloquear import opciones_bloquear
+from marcar import opciones_marcar
 from correo import enviar_correo
 from informacion import ver_informacion, ver_favoritos
 
+BASE_URL = "http://localhost:3000/" #URL de la API
 
 def menu(correo, clave):
     while True:
@@ -23,9 +24,9 @@ def menu(correo, clave):
         elif opcion == '3':
             ver_favoritos(correo)
         elif opcion == '4':
-            opcion_marcar(correo, clave)
+            opciones_marcar(correo, clave)
         elif opcion == '5':
-            opcion_bloquear(correo,clave)
+            opciones_bloquear(correo,clave)
         elif opcion == '6':
             break
         else:

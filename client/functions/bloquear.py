@@ -1,7 +1,8 @@
 import requests
-from baseurl import BASE_URL
 
-def opcion_bloquear(correo, clave):
+BASE_URL = "http://localhost:3000/" #URL de la API
+
+def opciones_bloquear(correo, clave):
     print("1. Bloquear usuario")
     print("2. Desbloquear usuario")
     opcion = int(input("Ingrese una opcion: "))

@@ -13,6 +13,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
  
+
+ 
 model usuarios {
   correo String @id 
   nombre String
@@ -35,7 +37,7 @@ model correos {
   es_favorito Boolean  @default(false)
 
   // Relación con correos_favoritos
-  esFavorito correos_favoritos[] @relation(fields: [es_favorito], references: [es_favorito])
+  correos_favoritos correos_favoritos[]
   
   remitente   usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [correo])
   destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [correo])
@@ -44,7 +46,7 @@ model correos {
 model correos_favoritos {
   id_correo_favorito Int      @id @default(autoincrement())
   es_favorito        Boolean  @default(true)
-  correo             correos  @relation(fields: [es_favorito], references: [es_favorito])
+  correo  correos  @relation(fields: [id_correo_favorito], references: [id])
 }
 model direcciones_bloqueadas {
   id Int @id @default(autoincrement())
@@ -53,4 +55,3 @@ model direcciones_bloqueadas {
 
   usuario usuarios @relation(fields: [usuarioId], references: [correo])
 }
- 

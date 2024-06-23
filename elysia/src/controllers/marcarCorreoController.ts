@@ -2,20 +2,20 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function marcarCorreoController(body: { correo: string; contrasena: string; direccion_favorita: string }): Promise<any> {
-    const { correo, contrasena, direccion_favorita } = body;
+export async function marcarCorreoController(body: { correo: string; clave: string; direccion_favorita: string }): Promise<any> {
+    const { correo, clave, direccion_favorita } = body;
 
-    if (!correo || !contrasena || !direccion_favorita) {
+    if (!correo || !clave || !direccion_favorita) {
         throw new Error('Faltan campos por llenar');
     }
 
     try {
         // Verificar si el usuario existe y la contraseña es correcta
         const usuario = await prisma.usuarios.findUnique({
-            where: { direccion_correo: correo }
+            where: { correo: correo }
         });
 
-        if (!usuario || usuario.contrasena !== contrasena) {
+        if (!usuario || usuario.clave !== clave) {
             throw new Error('Usuario no encontrado o contraseña incorrecta');
         }
 

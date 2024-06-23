@@ -6,7 +6,7 @@ export default function configureRegistrarUsuarioRoutes(app: Elysia) {
     body: t.Object({
         correo : t.String(), 
         clave: t.String(),
-        correo_bloqueada: t.String()
+        correo_bloquear: t.String()
     })
   });
 }

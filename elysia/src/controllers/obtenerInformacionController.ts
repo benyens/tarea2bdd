@@ -1,22 +1,29 @@
-import { Elysia, Context } from 'elysia'; 
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-interface RequestBody {
-  nombre_usuario: string;
-  direccion_correo: string;
-  descripcion: string;
-}
 
-export async function obtenerInformacionController(body: { nombre_usuario: string, direccion_correo: string, descripcion: string, contrasena: string }) {
-    const {  nombre_usuario, direccion_correo, descripcion, contrasena } = body;
-    const newUser = await prisma.usuarios.create({
-      data: {
-        nombre_usuario,
-        direccion_correo,
-        descripcion,
-        contrasena,
-      },
-    });
+export async function obtenerInformacionController(body: { nombre: string, correo: string, descripcion: string, clave: string }) {
+    const {  nombre, correo, descripcion, clave } = body;
+
+    if (!nombre || !correo || !clave || !descripcion) {
+      throw new Error('Faltan campos por llenar');
+    }
+
+    try {
+      const newUser = await prisma.usuarios.create({
+        data: {
+          nombre,
+          correo,
+          descripcion,
+          clave
+        },
+      });
+      return newUser;
+    }  catch (error) {
+        console.error('Error al registrar el usuario:', error);
+        throw new Error('No se pudo registrar el usuario');
+    } finally {
+        await prisma.$disconnect();
+    }
 }

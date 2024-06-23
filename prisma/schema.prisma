@@ -14,9 +14,9 @@ datasource db {
 }
  
 model usuarios {
-  direccion_correo String @id 
-  nombre_usuario String
-  contrasena String
+  correo String @id 
+  nombre String
+  clave String
   descripcion String
   bloqueado Boolean @default(false)
   fecha_creacion DateTime @default(now())
@@ -32,8 +32,8 @@ model correos {
   destinatarioId String // clave foránea
   fecha_envio DateTime @default(now())
 
-  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [direccion_correo])
-  destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [direccion_correo])
+  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [correo])
+  destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [correo])
 }
 
 model direcciones_favoritas {
@@ -41,7 +41,7 @@ model direcciones_favoritas {
   usuarioId String// clave foránea
   direccion_favorita String
 
-  usuario usuarios @relation(fields: [usuarioId], references: [direccion_correo])
+  usuario usuarios @relation(fields: [usuarioId], references: [correo])
 }
 
 model direcciones_bloqueadas {
@@ -49,6 +49,6 @@ model direcciones_bloqueadas {
   usuarioId String // clave foránea
   direccion_bloqueada String
 
-  usuario usuarios @relation(fields: [usuarioId], references: [direccion_correo])
+  usuario usuarios @relation(fields: [usuarioId], references: [correo])
 }
  

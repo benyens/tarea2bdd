@@ -11,14 +11,16 @@ export async function obtenerInformacionController(body: { nombre: string, corre
     }
 
     try {
-      const newUser = await prisma.usuarios.create({
-        data: {
-          nombre,
-          correo,
-          descripcion,
-          clave
-        },
-      });
+      const newUser = await prisma.usuarios.findUnique({
+        where: {
+          correo: correo
+      },
+      select: {
+        nombre: true,
+        correo: true,
+        descripcion: true,
+      }
+    });
       return newUser;
     }  catch (error) {
         console.error('Error al registrar el usuario:', error);

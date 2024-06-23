@@ -14,6 +14,7 @@ export async function bloquearUsuarioController(body: { correo: string, clave: s
             data: {
                 correo,
                 clave,
+                bloqueados,
             },
         });
 

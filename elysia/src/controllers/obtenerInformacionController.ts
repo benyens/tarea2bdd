@@ -3,10 +3,10 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 
-export async function obtenerInformacionController(body: { nombre: string, correo: string, descripcion: string, clave: string }) {
-    const {  nombre, correo, descripcion, clave } = body;
+export async function obtenerInformacionController(body: { nombre: string, correo: string, descripcion: string }) {
+    const {  nombre, correo, descripcion } = body;
 
-    if (!nombre || !correo || !clave || !descripcion) {
+    if (!nombre || !correo || !descripcion) {
       throw new Error('Faltan campos por llenar');
     }
 

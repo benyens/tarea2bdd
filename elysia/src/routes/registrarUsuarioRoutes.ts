@@ -1,20 +1,14 @@
 import { Elysia, t } from 'elysia';
-import { marcarCorreoController } from '../controllers/marcarCorreoController';
+import { registrarUsuarioController } from '../controllers/registrarUsuarioController';
 
-export default function configureMarcarCorreoRoutes(app: Elysia) {
-  app.post('/api/marcarcorreo', async (req) => {
-    const { body } = req as { body: { correo: string; contrasena: string; direccion_favorita: string } }; 
+export default function configureRegistrarUsuarioRoutes(app: Elysia) {
+  app.post('api/registrar', async (req) => {
+    const { body } = req as { body: { nombre: string; correo: string; clave: string; descripcion: string; } }; 
     try {
-      const result = await marcarCorreoController(body); 
+      const result = await registrarUsuarioController(body); 
       return result; 
     } catch (error) {
-      throw new Error('Error al marcar correo');
+      throw new Error('Error al registrar usuario');
     }
-  }, {
-    body: t.Object({
-      correo: t.String(),
-      contrasena: t.String(),
-      direccion_favorita: t.String()
-    })
   });
 }

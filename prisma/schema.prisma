@@ -22,28 +22,30 @@ model usuarios {
   fecha_creacion DateTime @default(now())
   correosEnviados correos[] @relation(name: "CorreoRemitente")
   correosRecibidos correos[] @relation(name: "CorreoDestinatario")
-  direcciones_favoritas direcciones_favoritas[]
   direcciones_bloqueadas direcciones_bloqueadas[]
 }
 
 model correos {
-  id Int @id @default(autoincrement())
-  remitenteId String // clave foránea
-  destinatarioId String // clave foránea
+  id          Int      @id @default(autoincrement())
+  remitenteId String
+  destinatarioId String
   fecha_envio DateTime @default(now())
+  asunto      String
+  mensaje     String
+  es_favorito Boolean  @default(false)
 
-  remitente usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [correo])
+  // Relación con correos_favoritos
+  esFavorito correos_favoritos[] @relation(fields: [es_favorito], references: [es_favorito])
+  
+  remitente   usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [correo])
   destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [correo])
 }
 
-model direcciones_favoritas {
-  id Int @id @default(autoincrement())
-  usuarioId String// clave foránea
-  direccion_favorita String
-
-  usuario usuarios @relation(fields: [usuarioId], references: [correo])
+model correos_favoritos {
+  id_correo_favorito Int      @id @default(autoincrement())
+  es_favorito        Boolean  @default(true)
+  correo             correos  @relation(fields: [es_favorito], references: [es_favorito])
 }
-
 model direcciones_bloqueadas {
   id Int @id @default(autoincrement())
   usuarioId String // clave foránea

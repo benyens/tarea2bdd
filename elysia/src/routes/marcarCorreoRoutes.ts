@@ -3,18 +3,22 @@ import { marcarCorreoController } from '../controllers/marcarCorreoController';
 
 export default function configureMarcarCorreoRoutes(app: Elysia) {
   app.post('/api/marcarcorreo', async (req) => {
-    const { body } = req as { body: { correo: string; contrasena: string; direccion_favorita: string } }; 
+    const { body } = req as { body: { usuarioId: string; clave: string; correoId: number } }; 
     try {
-      const result = await marcarCorreoController(body); 
+      const result = await marcarCorreoController({
+        usuarioId: body.usuarioId,
+        clave: body.clave,
+        correoId: Number(body.correoId), 
+      });
       return result; 
     } catch (error) {
       throw new Error('Error al marcar correo');
     }
   }, {
     body: t.Object({
-      correo: t.String(),
-      contrasena: t.String(),
-      direccion_favorita: t.String()
+      usuarioId: t.String(),
+      clave: t.String(),
+      correoId: t.Number()
     })
   });
 }

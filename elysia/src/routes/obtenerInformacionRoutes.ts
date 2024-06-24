@@ -5,23 +5,10 @@ export default function configureObtenerInformacionRoutes(app: Elysia) {
   app.get('/api/informacion/:correo', async (req) => {
     const { params } = req; 
     try {
-      const result = await obtenerInformacionController(params); // 
+      const result = await obtenerInformacionController({ correo: params.correo });
       return result; 
     } catch (error) {
       throw new Error('Error al obtener información');
-    }
-  }, {
-    schema: {
-      params: t.Object({
-        correo: t.String(), 
-      }),
-      response: {
-        200: t.Object({
-          nombre: t.String(),
-          correo: t.String(),
-          descripcion: t.String(),
-        }),
-      },
     }
   });
 }

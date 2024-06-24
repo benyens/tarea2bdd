@@ -1,9 +1,10 @@
-from bloquear import opciones_bloquear
-from marcar import opciones_marcar
-from correo import enviar_correo
-from informacion import ver_informacion, ver_favoritos
 
-BASE_URL = "http://localhost:3000/" #URL de la API
+from functions.bloquear import opciones_bloquear
+from functions.marcar import opciones_marcar
+from functions.correo import enviar_correo
+from functions.informacion import ver_informacion, ver_favoritos
+
+BASE_URL = "http://localhost:3000/api" #URL de la API
 
 def menu(correo, clave):
     while True:

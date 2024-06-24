@@ -20,8 +20,8 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
 1. Clonar el repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
-   cd tu-repositorio
+   git clone https://github.com/benyens/tarea2bdd
+   cd tarea2bdd
 
 2. Instalar las dependencias:
    ```bash
@@ -39,9 +39,9 @@ Esta API permite gestionar usuarios y correos, proporcionando funcionalidades co
    npx prisma migrate dev --name init
    npx prisma generate
 
-5. Iniciar el servidor:
+5. Iniciar el servidor en modo developer:
    ```bash
-   npm run start
+   npm run dev
 
 El servidor estará disponible en http://localhost:3000.
 
@@ -49,3 +49,5 @@ El servidor estará disponible en http://localhost:3000.
 ### Post-Data
 
 -En este caso le agregamos la opción de bloquear/desbloquear usuario en el menú.
+-Por temas de orden y funcionalidad, (y que nos dimos cuenta después), en vez de "api", la carpeta se llama "elysia/src", perdón .
+-También se supone que todas las entradas son correctas

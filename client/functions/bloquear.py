@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "http://localhost:3000/" #URL de la API
+BASE_URL = "http://localhost:3000/api" #URL de la API
 
 def opciones_bloquear(correo, clave):
     print("1. Bloquear usuario")
@@ -20,20 +20,34 @@ def opciones_bloquear(correo, clave):
 
 def bloquear_usuario(correo, clave, correo_bloquear):
     data = {
-        "correo": correo,
+        "usuarioId": correo,
         "clave": clave,
         "direccion_bloqueada": correo_bloquear
     }
-    response = requests.post(f"{BASE_URL}/bloquear", json=data)
-    print(response.json())
+    try:
+        response = requests.post(f"{BASE_URL}/bloquearusuario", json=data)
+        response.raise_for_status()
+        print("Dirección bloqueada exitosamente.")
+        print(f"{correo_bloquear} ha sido bloqueado.")
+    except requests.exceptions.HTTPError as err:
+        if err.response.status_code == 404:
+            print("Usuario no encontrado")
+        print(f"Error al bloquear usuario: {err}")
 
 
 def desbloquear_usuario(correo, clave, correo_desbloquear):
     data = {
-        "correo": correo,
+        "usuarioId": correo,
         "clave": clave,
         "direccion_bloqueada": correo_desbloquear
     }
-    response = requests.delete(f"{BASE_URL}/desbloquear", json=data)
+    try:
+        response = requests.delete(f"{BASE_URL}/desbloquearusuario", json=data)
+        response.raise_for_status()
+        print("Dirección desbloqueada exitosamente.")
+        print(f"{correo_desbloquear} ha sido desbloqueado.")
+    except requests.exceptions.HTTPError as err:
+        if err.response.status_code == 404:
+            print("Usuario no encontrado")
+        print(f"Error al desbloquear usuario: {err}")
 
-    print(response.json())

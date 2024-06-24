@@ -10,6 +10,18 @@ export async function registrarUsuarioController(body: { nombre: string, correo:
     }
 
     try {
+        // Verificar si ya existe un usuario con el mismo nombre
+        const usuarioExistente = await prisma.usuarios.findUnique({
+            where: {
+                correo: correo,
+            },
+        });
+
+        if (usuarioExistente) {
+            throw new Error('Ya existe un usuario con este nombre');
+        }
+
+        // Si no existe, proceder con el registro
         const newUser = await prisma.usuarios.create({
             data: {
                 nombre,

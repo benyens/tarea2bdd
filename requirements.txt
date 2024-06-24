@@ -4,15 +4,21 @@ Requisitos
     Python 3.x
     requests library
 
-Instalación
+Servidor
 
-    Crear un entorno virtual e instalar las dependencias:
+    Para correr el Servidor localmente revisar el README.md del servidor.
+
+Instalación de requests
 
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
-    pip install -r requirements.txt
+    pip install requests
 
 Archivo requirements.txt:
     ```text
     requests
+
+Ejecución
+
+    ```bash
+    python client/main.py
+

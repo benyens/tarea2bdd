@@ -25,6 +25,7 @@ model usuarios {
   correosEnviados correos[] @relation(name: "CorreoRemitente")
   correosRecibidos correos[] @relation(name: "CorreoDestinatario")
   direcciones_bloqueadas direcciones_bloqueadas[]
+  correosFavoritos correos_favoritos[]
 }
 
 model correos {
@@ -36,18 +37,21 @@ model correos {
   mensaje     String
   es_favorito Boolean  @default(false)
 
-  // Relación con correos_favoritos
-  correos_favoritos correos_favoritos[]
-  
   remitente   usuarios @relation(name: "CorreoRemitente", fields: [remitenteId], references: [correo])
   destinatario usuarios @relation(name: "CorreoDestinatario", fields: [destinatarioId], references: [correo])
+  correos_favoritos correos_favoritos[]
 }
 
 model correos_favoritos {
-  id_correo_favorito Int      @id @default(autoincrement())
-  es_favorito        Boolean  @default(true)
-  correo  correos  @relation(fields: [id_correo_favorito], references: [id])
+  id Int @id @default(autoincrement())
+  usuarioId String
+  correoId Int
+  es_favorito Boolean @default(true)
+
+  usuario usuarios @relation(fields: [usuarioId], references: [correo])
+  correo correos @relation(fields: [correoId], references: [id])
 }
+
 model direcciones_bloqueadas {
   id Int @id @default(autoincrement())
   usuarioId String // clave foránea

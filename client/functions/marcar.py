@@ -1,19 +1,19 @@
 import requests
 
-BASE_URL = "http://localhost:3000/" #URL de la API
+BASE_URL = "http://localhost:3000/api" #URL de la API
 
 def opciones_marcar(correo, clave):
-    print("1. Marcar usuario como favorito")
-    print("2. Desmarcar usuario como favorito")
+    print("1. Marcar correo como favorito")
+    print("2. Desmarcar correo como favorito")
     opcion = int(input("Ingrese una opcion: "))
     while True:
         if opcion == 1:
-            correo_bloquear = input("Ingrese el correo del usuario a marcar como favorito: ")
-            marcar_favorito(correo, clave, correo_bloquear)
+            correo_marcar = int(input("Ingrese el correo a marcar como favorito: "))
+            marcar_favorito(correo, clave, correo_marcar)
             break
         elif opcion == 2:
-            correo_desbloquear = input("Ingrese el correo del usuario a desmarcar como favorito: ")
-            desmarcar_favorito(correo, clave, correo_desbloquear)
+            correo_marcar = (input("Ingrese el correo a desmarcar como favorito: "))
+            desmarcar_favorito(correo, clave, correo_marcar)
             break
         else:
             print("Opcion invalida")
@@ -21,19 +21,32 @@ def opciones_marcar(correo, clave):
 
 def marcar_favorito(correo, clave, id_correo_favorito):
     data = {
-        "correo": correo,
+        "usuarioId": correo,
         "clave": clave,
-        "direccion_favorita": id_correo_favorito
+        "correoId": id_correo_favorito
     }
-    response = requests.post(f"{BASE_URL}/marcarcorreo", json=data)
-    print(response.json())
+    try:
+        response = requests.post(f"{BASE_URL}/marcarcorreo", json=data)
+        response.raise_for_status()
+        print("Correo marcado como favorito exitosamente.")
+    except requests.exceptions.HTTPError as err:
+        if err.response.status_code == 404:
+            print("Correo no encontrado")
+        print(f"Error al marcar correo como favorito: {err}")
+
 
 
 def desmarcar_favorito(correo, clave, id_correo_favorito):
     data = {
-        "UsuarioId": correo,
+        "usuarioId": correo,
         "clave": clave,
-        "direccion_favorita": id_correo_favorito
+        "correoId": id_correo_favorito
     }
-    response = requests.delete(f"{BASE_URL}/desmarcarcorreo", json=data)
-    print(response.json())
+    try:
+        response = requests.delete(f"{BASE_URL}/desmarcarcorreo", json=data)
+        response.raise_for_status()
+        print("Correo desmarcado como favorito exitosamente.")
+    except requests.exceptions.HTTPError as err:
+        if err.response.status_code == 404:
+            print("Correo no encontrado")
+        print(f"Error al desmarcar correo como favorito: {err}")

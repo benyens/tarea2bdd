@@ -20,11 +20,16 @@ def ver_informacion(correo):
             
 def ver_favoritos(correo):
     try:
-        response = requests.get(f"{BASE_URL}/api/favoritos/{correo}")
+        response = requests.get(f"{BASE_URL}/favoritos/{correo}")
 
         if response.status_code == 200:
             correos_favoritos = response.json()
-            return correos_favoritos
+            print("Correos favoritos:")
+            for correos in correos_favoritos:  
+                print(f"Destinatorio: {correos["destinatarioId"]}")
+                print(f"Asunto: {correos["asunto"]} ")
+                print(f"Mensaje: {correos["mensaje"]} ")
+                print(f"fecha: {correos["fecha_envio"]}\n ")
         else:
             if response.status_code == 404:
                 print("No se encontraron correos favoritos")

@@ -24,9 +24,17 @@ export async function verCorreosFavoritosController(correoUsuario: string) {
       throw new Error('Usuario no encontrado');
     }
 
-    const correosFavoritosEnviados = usuario.correosEnviados.filter(correo => correo.correos_favoritos.length > 0);
-    const correosFavoritosRecibidos = usuario.correosRecibidos.filter(correo => correo.correos_favoritos.length > 0);
+    // Filtrar correos favoritos dentro de los correos enviados
+    const correosFavoritosEnviados = usuario.correosEnviados.filter(correoEnviado =>
+      correoEnviado.correos_favoritos.length > 0
+    );
 
+    // Filtrar correos favoritos dentro de los correos recibidos
+    const correosFavoritosRecibidos = usuario.correosRecibidos.filter(correoRecibido =>
+      correoRecibido.correos_favoritos.length > 0
+    );
+
+    // Unir los correos favoritos enviados y recibidos en una sola lista
     const correosFavoritos = [
       ...correosFavoritosEnviados,
       ...correosFavoritosRecibidos,

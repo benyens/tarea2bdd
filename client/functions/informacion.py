@@ -17,11 +17,10 @@ def ver_informacion(correo):
             print("Usuario no encontrado")
         else:
             print(f"Error al obtener información del usuario: {err}")
-
-
+            
 def ver_favoritos(correo):
     try:
-        response = requests.get(f"{BASE_URL}/favoritos/{correo}")
+        response = requests.get(f"{BASE_URL}/api/favoritos/{correo}")
 
         if response.status_code == 200:
             correos_favoritos = response.json()
@@ -35,4 +34,3 @@ def ver_favoritos(correo):
     except requests.exceptions.RequestException as e:
         print(f"Error en la solicitud: {e}")
         return None
-
